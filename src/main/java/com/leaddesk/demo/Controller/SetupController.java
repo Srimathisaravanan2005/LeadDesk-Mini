@@ -1,6 +1,5 @@
 package com.leaddesk.demo.Controller;
 
-
 import com.leaddesk.demo.model.Admin;
 import com.leaddesk.demo.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +19,17 @@ public class SetupController {
 
     @GetMapping("/setup-admin")
     public String setupAdmin() {
-
-        if (adminRepository.findByEmail("admin@gmail.com").isEmpty()) {
-
-            Admin admin = new Admin();
-            admin.setEmail("admin@gmail.com");
-            admin.setPassword("admin123");
-
-            adminRepository.save(admin);
-
-            return "Admin created!";
+        try {
+            if (adminRepository.findByEmail("admin@gmail.com").isEmpty()) {
+                Admin admin = new Admin();
+                admin.setEmail("admin@gmail.com");
+                admin.setPassword("admin123");
+                adminRepository.save(admin);
+                return "Admin created!";
+            }
+            return "Admin already exists!";
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
         }
-
-        return "Admin already exists!";
     }
 }
