@@ -6,11 +6,11 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/leads")
-@CrossOrigin(origins = "*")
-
+@CrossOrigin(origins = {"https://leaddesk-frontenddh.vercel.app", "http://localhost:5173", "http://localhost:5174"})
 public class LeadController {
 
     private final LeadService service;
@@ -35,9 +35,7 @@ public class LeadController {
     }
 
     @PutMapping("/{id}")
-    public Lead updateStatus(@PathVariable String id,
-                             @RequestParam String status) {
-
-        return service.updateStatus(id, status);
+    public Lead updateStatus(@PathVariable String id, @RequestBody Map<String, String> body) {
+        return service.updateStatus(id, body.get("status"));
     }
 }
