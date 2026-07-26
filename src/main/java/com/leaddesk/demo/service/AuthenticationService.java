@@ -18,16 +18,23 @@ public class AuthenticationService {
 
     public String login(LoginRequest request) {
 
-        Admin admin = adminRepository
-                .findByEmail(request.getEmail())
+        System.out.println("Login attempt: " + request.getEmail());
+
+        Admin admin = adminRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("Admin not found"));
 
-        // For now we compare plain text passwords.
-        // Later we'll replace this with BCrypt.
+        System.out.println("Admin found: " + admin.getEmail());
+
         if (!admin.getPassword().equals(request.getPassword())) {
             throw new RuntimeException("Invalid password");
         }
 
-        return jwtService.generateToken(admin.getEmail());
+        System.out.println("Password matched");
+
+        String token = jwtService.generateToken(admin.getEmail());
+
+        System.out.println("Token generated");
+
+        return token;
     }
 }
