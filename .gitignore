@@ -35,5 +35,4 @@ target/
 .idea/
 *.iml
 
-application.properties
 .env
