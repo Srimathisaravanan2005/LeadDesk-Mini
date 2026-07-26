@@ -13,6 +13,11 @@ public class SetupController {
     @Autowired
     private AdminRepository adminRepository;
 
+    @GetMapping("/")
+    public String health() {
+        return "LeadDesk Backend is running!";
+    }
+
     @GetMapping("/setup-admin")
     public String setupAdmin() {
 
