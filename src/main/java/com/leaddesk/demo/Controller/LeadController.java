@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/leads")
-@CrossOrigin(origins = "http://localhost:5174")
+@CrossOrigin(origins = "*")
 
 public class LeadController {
 
