@@ -1,11 +1,12 @@
-FROM eclipse-temurin:21-jdk
+FROM openjdk:21-jdk-slim
 
 WORKDIR /app
 
-COPY . .
+# Copy the Spring Boot JAR into the container
+COPY ./target/demo*.jar app.jar
 
-RUN chmod +x mvnw && ./mvnw clean package -DskipTests
+# Expose the application port
+EXPOSE 8081
 
-EXPOSE 8080
-
-CMD ["java", "-jar", "target/demo-0.0.1-SNAPSHOT.jar"]
+# Run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
